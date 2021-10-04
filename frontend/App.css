@@ -1,0 +1,61 @@
+.App {
+  display : flex;
+  flex-direction: column;
+  background-color: #ccf2f4;
+  height: 100vh;
+}
+
+.header {
+  padding: 1rem 2rem;
+  background: #3b5998;
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 5px;
+}
+
+.header h1 {
+  color : #fff;
+}
+
+.contents {
+  display: grid;
+  grid-template-columns: 48% 4% 48%;
+  height:300px;
+}
+
+.contents h3 {
+  text-align: center;
+}
+
+#con_tag {
+  margin: 1px;
+  border: solid 1px #aabbaa;
+}
+
+#tag_score {
+  margin: 1px;
+  border: solid 1px #aabbaa;
+}
+
+.search {
+  display: inline-block;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.footer {
+  background-color: aliceblue;
+  margin-top: 10px;
+}
+
+.slider img {
+  display: block;
+  margin: auto;
+}
+
+.slider .desc {
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
