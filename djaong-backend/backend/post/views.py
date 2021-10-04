@@ -6,7 +6,7 @@ from rest_framework.response import Response
 
 from .models import Post
 from . import serializers
-#from . import game2vec
+from . import game2vec
 
 # ListCreateAPIView 클래스를 상속하여 ListPost 클래스를 생성한다.
 # queryset은 List를 만들 Query들의 모임이고, Seriailizer Class는 해당 Query들을 어떻게 직렬화할지 정한다.
@@ -34,11 +34,12 @@ class FindPost(APIView):
         Return a list of all users.
         """
         # Request.data Dict에서 Title의 값을 얻어와 String 변수로 반환.
+        # ex) 'FPS,Battle Royale,Team-based'
         string = str(request.data.get('title'))
-        # Post DB에서 filter로 'Title==String'인 Post만 찾아 Post.Content만 반환
-        titles = [Post.content for Post in Post.objects.filter(title=string)]
+        # tag 변수에 Game2Vec을 이용한 유사도 리스트 저장
+        tag = game2vec.search_tag(string)
         # 내장함수 Response를 이용해 Promise형태로 프론트엔드로 반환
-        return Response(titles)
+        return Response(tag)
     
     
 
