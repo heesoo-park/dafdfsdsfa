@@ -9,8 +9,9 @@ from .models import Post
 class PostSerializer(serializers.ModelSerializer):
     class Meta:
         fields = (
-            'id',
-            'title',
-            'content',
+            'name',
+            'all_reviews',
+            'popular_tags',
+            'URL',
         )
         model = Post

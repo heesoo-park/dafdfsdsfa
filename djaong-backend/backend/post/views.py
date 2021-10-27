@@ -3,6 +3,7 @@ from rest_framework.decorators import api_view
 from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from collections import namedtuple
 
 from .models import Post
 from . import serializers
@@ -30,17 +31,26 @@ class FindPost(APIView):
     # 프론트엔드에서 post를 요청할 경우 작동되는 함수이다.
     # request는 프론트엔드에서 백엔드로 넘기는 데이터. Dict로 구성됨.
     def post(self, request, format=None):
+        print(request.data);
         """
         Return a list of all users.
         """
         # Request.data Dict에서 Title의 값을 얻어와 String 변수로 반환.
         # ex) 'FPS,Battle Royale,Team-based'
-        string = str(request.data.get('title'))
+        string = str(request.data.get('tags'))
+        tags = string.split(',')
+        print(tags)
         # tag 변수에 Game2Vec을 이용한 유사도 리스트 저장
-        tag = game2vec.search_tag(string)
+        tag = game2vec.search_tag(tags)
+        print(tag)
+        queryset=Post.objects.all()
+        queryset1 = queryset.filter(popular_tags__icontains=tags[0])
+        for x in tags:
+            queryset2 = queryset.filter(popular_tags__icontains=x)
+            queryset1 = queryset.intersection(queryset1, queryset2)
+    
+        image_url = str(game2vec.search_image(queryset1[0].URL))
+        tag.append(image_url)
+    
         # 내장함수 Response를 이용해 Promise형태로 프론트엔드로 반환
         return Response(tag)
-    
-    
-
-    
