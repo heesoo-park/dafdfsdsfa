@@ -1,12 +1,18 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 function Search(props) {
+  //console.log(props.tags);
   const [tag, setTag] = useState("");
-  const tagref = useRef([]);
+  let saveTag = tag;
+
+  useEffect(() => {
+    setTag(props.tags);
+  }, [props.tags]);
 
   const handleChange = (e) => {
     setTag(e.target.value);
+    console.log(tag);
   };
 
   const handleSubmit = (e) => {
@@ -18,19 +24,24 @@ function Search(props) {
         tags,
       })
       .then(function (response) {
-        //console.log(response.data);
-        //let length = Object.keys(response).length;
-        // for (let i = 0; i < length - 2; i++) {
-        //   props.details[i] = response.data[i];
-        // }
-        props.onCreate(response.data);
+        props.onCreate(response.data, tag);
       });
+    // .catch(function (error) {
+    //   if (error.response.status === 500) {
+    //     alert("검색한 태그와 모두 일치하는 게임은 존재하지 않습니다.");
+    //   }
+    // });
   };
 
   return (
-    <div className="search">
-      <form onSubmit={handleSubmit}>
+    <div className="search" style={{ height: "5%" }}>
+      <form
+        onSubmit={handleSubmit}
+        style={{ display: "block", margin: "4px 79px 0 10px" }}
+      >
         <input
+          type="text"
+          style={{ width: "100%" }}
           placeholder="Search Tag"
           value={tag}
           onChange={handleChange}

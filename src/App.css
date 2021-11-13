@@ -1,8 +1,8 @@
 .App {
-  display : flex;
+  display: flex;
   flex-direction: column;
   background-color: #ccf2f4;
-  height: 100vh;
+  height: 100%;
 }
 
 .header {
@@ -14,13 +14,13 @@
 }
 
 .header h1 {
-  color : #fff;
+  color: #fff;
 }
 
 .contents {
   display: grid;
   grid-template-columns: 48% 4% 48%;
-  height:300px;
+  height: 300px;
 }
 
 .contents h3 {

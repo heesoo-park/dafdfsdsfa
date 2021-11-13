@@ -6,9 +6,9 @@ import slide from "../img/slide01.jpg";
 
 export class Games extends Component {
   render() {
-    const games = this.props.details;
+    const games = this.props.steamURL;
     const url = this.props.url;
-
+    //console.log(url);
     const settings = {
       dots: false,
       infinite: true,
@@ -17,23 +17,21 @@ export class Games extends Component {
       slidesToScroll: 1,
     };
     return (
-      <div className="slider">
-        <h2>Connected Games</h2>
-        <img src={url} />
+      <div className="slider" style={{ height: "20%" }}>
+        <h2>Related Games</h2>
 
-        {/* <Slider {...settings}>
+        <Slider {...settings}>
           {games &&
             games.map((e, index) => (
               <div key={index}>
                 <img
-                  src={slide}
+                  src={url[index]}
                   alt="1"
-                  onClick={() => window.open(`${e.URL}`, "_blank")}
+                  onClick={() => window.open(`${e}`, "_blank")}
                 />
-                <div className="desc">{e.name}</div>
               </div>
             ))}
-        </Slider> */}
+        </Slider>
         {/* <div>
           <img src={slide} alt="1" />
           <div className="desc">ㄹㅇㅋㅋ</div>

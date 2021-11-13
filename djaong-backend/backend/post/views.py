@@ -9,6 +9,8 @@ from .models import Post
 from . import serializers
 from . import game2vec
 
+urls = []
+
 # ListCreateAPIView 클래스를 상속하여 ListPost 클래스를 생성한다.
 # queryset은 List를 만들 Query들의 모임이고, Seriailizer Class는 해당 Query들을 어떻게 직렬화할지 정한다.
 # 이 경우 Post Query에 맞춰 미리 만들어둔 PostSerializer를 사용한다.
@@ -20,7 +22,6 @@ class ListPost(generics.ListCreateAPIView):
 class DetailPost(generics.RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.all()
     serializer_class = serializers.PostSerializer
-
 
 # Api/Cal/로 들어왔을때 반환되는 클래스. 넘어온 인자에 맞춰
 # DB에서 동일한 Title이 있는지 확인 후 반환한다.
@@ -35,6 +36,8 @@ class FindPost(APIView):
         """
         Return a list of all users.
         """
+
+        
         # Request.data Dict에서 Title의 값을 얻어와 String 변수로 반환.
         # ex) 'FPS,Battle Royale,Team-based'
         string = str(request.data.get('tags'))
@@ -49,8 +52,17 @@ class FindPost(APIView):
             queryset2 = queryset.filter(popular_tags__icontains=x)
             queryset1 = queryset.intersection(queryset1, queryset2)
     
-        image_url = str(game2vec.search_image(queryset1[0].URL))
-        tag.append(image_url)
+        
+        
+        # tag.append(image_url)
     
+        for i in range(5,0,-1):
+            image_url = str(game2vec.search_image(queryset1[i].URL))
+            tag.append(image_url)
+            
+        for j in range(5,0,-1):
+            tag.append(queryset1[j].URL)    
+        
+
         # 내장함수 Response를 이용해 Promise형태로 프론트엔드로 반환
         return Response(tag)

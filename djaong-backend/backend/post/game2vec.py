@@ -1,4 +1,5 @@
 import os
+from gensim.models.keyedvectors import Vocab
 import requests
 from gensim.models import Word2Vec
 from bs4 import BeautifulSoup
@@ -7,11 +8,9 @@ workpath = os.path.dirname(os.path.abspath(__file__))
 # 1. Read data
 loaded_model = Word2Vec.load(workpath+'\\data\\tag_w2v.model')
 
-
 def search_image(url):
     
     response = requests.get(url)
-    
     if response.status_code == 200:
         html =  response.text
         soup = BeautifulSoup(html, 'html.parser')
